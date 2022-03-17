@@ -150,6 +150,7 @@ function resolveHardhatNetworkConfig(
       ? {
           url: hardhatNetworkConfig.forking.url,
           enabled: hardhatNetworkConfig.forking.enabled ?? true,
+          httpHeaders: {},
         }
       : undefined;
 
@@ -158,6 +159,12 @@ function resolveHardhatNetworkConfig(
     if (blockNumber !== undefined) {
       forking.blockNumber = hardhatNetworkConfig?.forking?.blockNumber;
     }
+  }
+  if (
+    forking !== undefined &&
+    hardhatNetworkConfig.forking?.httpHeaders !== undefined
+  ) {
+    forking.httpHeaders = hardhatNetworkConfig.forking.httpHeaders;
   }
 
   const mining = resolveMiningConfig(hardhatNetworkConfig.mining);
